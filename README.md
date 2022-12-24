@@ -1,5 +1,8 @@
 # Minesweeper
 
-- OOP Javascript:define class for game state
-- useRef() hooks: dynamically styling rendered elements
-- 
+- using global state in React
+- useContext hook
+- useReducer hook
+- dispatch function
+- action object
+- global state provider

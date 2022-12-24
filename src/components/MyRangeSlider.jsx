@@ -9,17 +9,20 @@ export const MyRangeSlider = ({color,minv,maxv,set}) => {
     setValue(e.target.value)
     set(e.target.value)
   }
-
+//console.log(value)
   return (
+    <div className="d-flex align-items-center">
     <RangeSlider
       value={value}
       onChange={handleChange}
-      tooltipPlacement='bottom'
-      tooltip='on'
+      tooltip='off'
       min={+minv}
       max={+maxv}
       variant={color}
     />
+    <div style={{width:'10px'}}>{value}</div>
+    </div>
+    
   );
 
 };
