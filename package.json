@@ -2,7 +2,7 @@
   "name": "aknakereso",
   "version": "0.1.0",
   "private": true,
-  "homepage":"https://mkatay.github.io/minesweeper",
+  "homepage":"https://mkatay.github.io/minesweeper/",
 
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
