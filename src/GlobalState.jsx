@@ -3,6 +3,7 @@ import React,{createContext,useReducer} from 'react'
 const initialState={
     //a felhasználó által megadott adatok:x,y,minesNr kerül majd be a dim objektumba
     dim:{},
+    mines:0,
     field:{
         isMine:false,
         state: 0,//state: 0-felfedetlen, 1-felfedett, 2-zászló,3-felfedett és felrobbant
@@ -44,7 +45,7 @@ const MyReducer=(state, action)=>{
                             if (newBoard[i + randY] && newBoard[i + randY][j + randX] && !newBoard[i + randY][j + randX].isMine)
                                 newBoard[i + randY][j + randX].mineNeighbors++;        
                 }//a bombák véletlenszerű elhelyezése >
-                return {...state,  dim: action.dim ,board:newBoard, stage:1}   
+                return {...state,  dim: action.dim ,mines:minesNr,board:newBoard, stage:1}   
        /* case 'INITIALIZE_BOARD':*/
             
         case 'REVEAL_FIELD':
@@ -71,7 +72,15 @@ const MyReducer=(state, action)=>{
             if (state.stage !== 1) return state;
             const victory = state.board.every(row => 
                     row.every(field =>field.state==1 || field.state === 2))
-            return victory? {...state,stage:3} : state
+            let allMines=true
+            for(let row of state.board){
+                for(let f of row)
+                    if(f.isMine && f.state!=2){
+                        allMines=false
+                        break
+                    }
+            }                  
+            return victory && allMines ? {...state,stage:3} : state
         default:
             return state
     }
@@ -113,7 +122,8 @@ const reveal=(state,position)=>{
                         const newPos={x:x+i,y:y+j}
                         reveal({...state,board:newBoard},newPos);
                     }      
-            }
-            return {...state,board:newBoard}
+            }                  
+            return  {...state,board:newBoard}
+    
   }}
 }

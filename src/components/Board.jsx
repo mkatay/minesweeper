@@ -6,29 +6,33 @@ export const Board=()=> {
   const [state,dispatch]=useContext(MyGlobalContext)
   const [modal, setModal] = useState(false);
   const [revealAll, setRevealAll] = useState(false)
+  const [counter,setCounter] = useState(0)
 
   useEffect(() => {
-    //console.log('useEffect:',state.stage);
+    //console.log('useEffect:',state.stage); 
     state.stage==1 && setRevealAll(false)
     state.stage==2 && setModal(true);
     dispatch({type:'CHECK_VICTORY'})
-  }, [state]);
+    state.stage==3 && setModal(true);
+  }, [state,counter]);
 
   const handleClick=(y,x,state)=>{
-    console.log(x,y)
+    setCounter(counter+1)
+    //console.log(x,y)
     const position={x:x,y:y}
     state==0 && dispatch({type:'REVEAL_FIELD',position})
    
   }
    const gameOver=()=>{
-    console.log('on close')
+    //console.log('on close')
     setModal(false)
     dispatch({type:'REVEAL_ALL'})
     setRevealAll(true)
    }
    const handleRightClick=(e,y,x,state)=>{
     e.preventDefault()
-    console.log('on right click:',x,y)
+    setCounter(counter+1)
+    //console.log('on right click:',x,y)
     const position={x:x,y:y}
     state==0 && dispatch({type:'SET_FLAG',position}) 
     state==2 && dispatch({type:'REMOVE_FLAG',position})
@@ -36,7 +40,7 @@ export const Board=()=> {
    const resetGame=() => {
     console.log('reset game')
    }
-   console.log(state)
+   //console.log(state)
   return (
     <div className="mx-auto mt-1">
       
